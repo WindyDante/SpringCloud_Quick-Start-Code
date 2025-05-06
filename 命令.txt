@@ -1,0 +1,1 @@
+启动nacos：在nacos的bin目录打开cmd输入startup.cmd -m standalone
