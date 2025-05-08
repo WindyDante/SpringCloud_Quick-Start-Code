@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>services</module>
+        <module>Model</module>
     </modules>
     <groupId>com.eastwind</groupId>
     <artifactId>cloud-demo</artifactId>
