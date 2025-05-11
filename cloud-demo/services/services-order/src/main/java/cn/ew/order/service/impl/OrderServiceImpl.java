@@ -7,6 +7,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,9 +22,12 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private RestTemplate restTemplate;
 
+    @Resource   // 导入负载均衡依赖
+    private LoadBalancerClient loadBalancerClient;
+
     @Override
     public Order createOrder(Long userId, Long productId) {
-        Product productRemote = getProductRemote(productId);
+        Product productRemote = getProductRemoteLoadBalance(productId);
         // 这里是创建订单的逻辑
         Order order = new Order();
         order.setTotalAmount(new BigDecimal("10"));
@@ -42,7 +46,18 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private DiscoveryClient discoveryClient;
 
+
+
+    private Product getProductRemoteLoadBalance(Long productId) {
+        // 负载均衡:默认轮询
+        ServiceInstance instance = loadBalancerClient.choose("service-product");
+        String url = "http://" + instance.getHost() + ":" + instance.getPort() + "/product/" + productId;
+        log.info("远程请求:{}",url);
+        return restTemplate.getForObject(url, Product.class);
+    }
+
     private Product getProductRemote(Long productId) {
+
         List<ServiceInstance> instances = discoveryClient.getInstances("service-product");
         // ip
         ServiceInstance instance = instances.get(0);
