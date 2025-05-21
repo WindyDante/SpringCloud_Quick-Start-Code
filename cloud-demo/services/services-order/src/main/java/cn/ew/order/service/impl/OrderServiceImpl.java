@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(Long userId, Long productId) {
-        Product productRemote = getProductRemoteLoadBalance(productId);
+        Product productRemote = getProductRemoteLoadBalanceAnnotation(productId);
         // 这里是创建订单的逻辑
         Order order = new Order();
         order.setTotalAmount(new BigDecimal("10"));
@@ -46,7 +46,13 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private DiscoveryClient discoveryClient;
 
-
+    private Product getProductRemoteLoadBalanceAnnotation(Long productId) {
+        // 注解式负载均衡
+        String url = "http://service-product/product/" + productId;
+        // restTemplate会将url动态替换,此处的service-product 会被替换为具体的ip和端口
+        log.info("远程请求:{}",url);
+        return restTemplate.getForObject(url, Product.class);
+    }
 
     private Product getProductRemoteLoadBalance(Long productId) {
         // 负载均衡:默认轮询
