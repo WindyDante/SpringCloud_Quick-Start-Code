@@ -1,0 +1,45 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  application:
+    name: services-order
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        namespace: ${spring.profiles.active:dev}
+
+# 根据profile.active里动态做配置中心激活,如果没有写,默认使用dev
+
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    #    在特定环境下,上述的两个import生效
+    activate:
+      on-profile: dev
+---
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    #    在特定环境下,上述的两个import生效
+    activate:
+      on-profile: test
+---
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    #    在特定环境下,上述的两个import生效
+    activate:
+      on-profile: prod
+---
