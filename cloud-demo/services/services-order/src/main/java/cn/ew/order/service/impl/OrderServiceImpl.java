@@ -1,6 +1,7 @@
 package cn.ew.order.service.impl;
 
 import cn.ew.order.bean.Order;
+import cn.ew.order.feign.ProductFeignClient;
 import cn.ew.order.service.OrderService;
 import cn.ew.product.bean.Product;
 import jakarta.annotation.Resource;
@@ -25,9 +26,15 @@ public class OrderServiceImpl implements OrderService {
     @Resource   // 导入负载均衡依赖
     private LoadBalancerClient loadBalancerClient;
 
+    @Resource
+    private ProductFeignClient productFeignClient;
+
     @Override
     public Order createOrder(Long userId, Long productId) {
-        Product productRemote = getProductRemoteLoadBalanceAnnotation(productId);
+//        Product productRemote = getProductRemoteLoadBalanceAnnotation(productId);
+
+        // 使用feign远程调用
+        Product productRemote = productFeignClient.getProductById(productId);
         // 这里是创建订单的逻辑
         Order order = new Order();
         order.setTotalAmount(new BigDecimal("10"));

@@ -15,6 +15,7 @@ public class ProductServiceImpl implements ProductService {
         product.setProductName("Product " + productId);
         product.setPrice(new BigDecimal("100.00"));
         product.setNum(10);
+        System.out.println("hello");
         return product;
     }
 }
