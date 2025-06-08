@@ -10,6 +10,9 @@ spring:
       server-addr: 127.0.0.1:8848
       config:
         namespace: ${spring.profiles.active:dev}
+logging:
+  level:
+    cn.ew.order.feign: debug # 配置某个包下的日志级别为debug,可以获取更多的日志
 
 # 根据profile.active里动态做配置中心激活,如果没有写,默认使用dev
 
