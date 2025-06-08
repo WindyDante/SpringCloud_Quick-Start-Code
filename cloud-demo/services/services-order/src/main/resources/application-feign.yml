@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:  # 如果没有设置对应的服务,使用该默认配置
+            logger-level: full
+            connect-timeout: 1000
+            read-timeout: 2000
+          service-product:   # 设置服务名称
+             logger-level: full
+             connect-timeout: 3000
+             read-timeout: 5000
