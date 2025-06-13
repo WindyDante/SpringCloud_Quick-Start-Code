@@ -4,10 +4,13 @@ spring:
       client:
         config:
           default:  # 如果没有设置对应的服务,使用该默认配置
-            logger-level: full
+            logger-level: basic
             connect-timeout: 1000
             read-timeout: 2000
           service-product:   # 设置服务名称
-             logger-level: full
+             logger-level: basic
              connect-timeout: 3000
              read-timeout: 5000
+#             request-interceptors:
+#               - cn.ew.order.interceptor.XTokenRequestInterceptor # 配置请求拦截器,仅对当前服务有效
+#             retryer: feign.retryer.Default # 默认重试器配置
