@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class OrderConfig {
 
     // 在容器中添加重试器,会自动识别
-    @Bean
+//    @Bean 测试fallback时注释掉,否则会多次重试
     Retryer retryer() {
         // 返回默认的重试器
         return new Retryer.Default();

@@ -14,3 +14,6 @@ spring:
 #             request-interceptors:
 #               - cn.ew.order.interceptor.XTokenRequestInterceptor # 配置请求拦截器,仅对当前服务有效
 #             retryer: feign.retryer.Default # 默认重试器配置
+feign:
+  sentinel:
+    enabled: true # 开启feign sentinel
