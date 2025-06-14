@@ -4,6 +4,7 @@ import cn.ew.order.bean.Order;
 import cn.ew.order.feign.ProductFeignClient;
 import cn.ew.order.service.OrderService;
 import cn.ew.product.bean.Product;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
@@ -29,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private ProductFeignClient productFeignClient;
 
+    @SentinelResource(value = "createOrder")
     @Override
     public Order createOrder(Long userId, Long productId) {
 //        Product productRemote = getProductRemoteLoadBalanceAnnotation(productId);

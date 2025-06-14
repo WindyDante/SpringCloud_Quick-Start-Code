@@ -3,6 +3,7 @@ package cn.ew.order.controller;
 import cn.ew.order.bean.Order;
 import cn.ew.order.properties.OrderProperties;
 import cn.ew.order.service.OrderService;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import jakarta.annotation.Resource;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;

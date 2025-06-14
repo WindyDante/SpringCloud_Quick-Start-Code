@@ -11,9 +11,15 @@ spring:
              logger-level: basic
              connect-timeout: 3000
              read-timeout: 5000
+    sentinel:
+      transport:
+        dashboard: localhost:8080 # 设置sentinel控制台地址
+      eager: true # 将eager模式设置为true,在项目启动时加载sentinel配置,否则会在第一次请求时加载
 #             request-interceptors:
 #               - cn.ew.order.interceptor.XTokenRequestInterceptor # 配置请求拦截器,仅对当前服务有效
 #             retryer: feign.retryer.Default # 默认重试器配置
 feign:
   sentinel:
     enabled: true # 开启feign sentinel
+
+
