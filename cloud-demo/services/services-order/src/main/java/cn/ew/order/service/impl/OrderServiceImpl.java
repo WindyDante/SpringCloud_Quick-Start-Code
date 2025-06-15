@@ -5,6 +5,7 @@ import cn.ew.order.feign.ProductFeignClient;
 import cn.ew.order.service.OrderService;
 import cn.ew.product.bean.Product;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
@@ -30,7 +31,10 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private ProductFeignClient productFeignClient;
 
-    @SentinelResource(value = "createOrder")
+
+
+    // 还可以在该注解使用默认的fallback方法
+    @SentinelResource(value = "createOrder",blockHandler = "createOrderBlockHandler")
     @Override
     public Order createOrder(Long userId, Long productId) {
 //        Product productRemote = getProductRemoteLoadBalanceAnnotation(productId);
@@ -49,6 +53,18 @@ public class OrderServiceImpl implements OrderService {
         // 总金额 = 商品数量 * 商品单价
         BigDecimal price = productRemote.getPrice();
         order.setTotalAmount(price.multiply(order.getTotalAmount()));
+        return order;
+    }
+
+    // 执行SentinelResource时的兜底回调
+    public Order createOrderBlockHandler(Long userId, Long productId, BlockException blockException) {
+        System.out.println("createOrderBlockHandler被执行了兜底回调");
+        Order order = new Order();
+        order.setId(0L);
+        order.setUserId(0L);
+        order.setProductList(List.of());
+        order.setNickName("未知用户");
+        order.setAddress("未知地址");
         return order;
     }
 
