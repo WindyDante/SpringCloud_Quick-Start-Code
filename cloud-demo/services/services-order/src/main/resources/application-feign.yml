@@ -15,6 +15,9 @@ spring:
       transport:
         dashboard: localhost:8080 # 设置sentinel控制台地址
       eager: true # 将eager模式设置为true,在项目启动时加载sentinel配置,否则会在第一次请求时加载
+      web-context-unify: false  # 设置为true时,统一web的context路径,否则每个服务的context路径独立
+      # 当我们测试流控规则-链路时，设置为false，这样可以将秒杀创建订单和普通创建订单分割开，否则true会导致它俩的web-context相同，会有影响
+      # 设置为false它俩就是两个链路了
 #             request-interceptors:
 #               - cn.ew.order.interceptor.XTokenRequestInterceptor # 配置请求拦截器,仅对当前服务有效
 #             retryer: feign.retryer.Default # 默认重试器配置

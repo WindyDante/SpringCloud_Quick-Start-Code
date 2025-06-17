@@ -56,11 +56,11 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalAmount(price.multiply(order.getTotalAmount()));
 
         // SphU硬编码熔断,如果出现了熔断问题，可以在这里处理
-        try {
-            SphU.entry("test");
-        } catch (BlockException e) {
-            // 处理
-        }
+//        try {
+//            SphU.entry("test");
+//        } catch (BlockException e) {
+//            // 处理
+//        }
         return order;
     }
 
