@@ -4,6 +4,7 @@ import cn.ew.order.bean.Order;
 import cn.ew.order.feign.ProductFeignClient;
 import cn.ew.order.service.OrderService;
 import cn.ew.product.bean.Product;
+import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import jakarta.annotation.Resource;
@@ -53,6 +54,13 @@ public class OrderServiceImpl implements OrderService {
         // 总金额 = 商品数量 * 商品单价
         BigDecimal price = productRemote.getPrice();
         order.setTotalAmount(price.multiply(order.getTotalAmount()));
+
+        // SphU硬编码熔断,如果出现了熔断问题，可以在这里处理
+        try {
+            SphU.entry("test");
+        } catch (BlockException e) {
+            // 处理
+        }
         return order;
     }
 
