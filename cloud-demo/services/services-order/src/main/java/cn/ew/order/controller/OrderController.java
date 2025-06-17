@@ -52,4 +52,19 @@ public class OrderController {
         return order;
     }
 
+    // 测试Sentinel的关联流控规则
+    @GetMapping("/writeDb")
+    public String writeDb() {
+        return "写入数据库成功";
+    }
+
+    // 测试Sentinel的关联流控规则
+    // 为readDb设置关联流控规则
+    // 设置qps为1,关联writeDb，当writeDb刷新特快的时候，访问readDb的qps会被限制
+    // 因为readDb和writeDb是关联的，readDb的qps会被writeDb的qps限制
+    @GetMapping("/readDb")
+    public String readDb() {
+        return "读取数据库成功";
+    }
+
 }
