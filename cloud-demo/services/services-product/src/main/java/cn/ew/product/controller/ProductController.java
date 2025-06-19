@@ -23,7 +23,7 @@ public class ProductController {
         System.out.println(header);
         Product product = productService.getProductById(productId);
         // 测试异常机制服务熔断,如果熔断了,就不会再发起请求，而是直接兜底回调
-        int a = 1 / 0; // 故意制造异常
+//        int a = 1 / 0; // 故意制造异常
 //        try {
 //            // 模拟网络延迟
 //            // 测试服务熔断,当调用的服务在2秒内没有响应时，进行熔断
