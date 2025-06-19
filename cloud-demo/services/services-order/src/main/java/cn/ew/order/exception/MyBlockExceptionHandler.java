@@ -17,6 +17,7 @@ public class MyBlockExceptionHandler implements BlockExceptionHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String resourceName, BlockException e) throws Exception {
+        httpServletResponse.setStatus(429); // to many request
         // Sentinel 在重启后，簇点链路中的规则也会重启，需要重新设置!!!
         httpServletResponse.setContentType("application/json;charset=UTF-8");
         PrintWriter writer = httpServletResponse.getWriter();
