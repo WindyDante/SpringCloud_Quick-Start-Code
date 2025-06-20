@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RefreshScope   // 激活远程nacos配置中心的自动刷新
-@RequestMapping("/api/order")
+//@RequestMapping("/api/order")
 public class OrderController {
 
 

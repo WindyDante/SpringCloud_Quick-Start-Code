@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface ProductFeignClient {
 
 
-    @GetMapping("/api/product/product/{id}")
+    @GetMapping("/product/{id}")
     Product getProductById(@PathVariable("id") Long id);
 
 }

@@ -6,7 +6,10 @@ spring:
           uri: lb://service-order # 这里的lb表示负载均衡load balancer
           predicates: # Predicates用于定义路由的匹配规则
             - Path=/api/order/** # 这里的Path表示请求路径匹配,只要匹配到了/api/order/**的请求就会被路由到service-order服务
-            - q=q,value2 # 如果是自定义的断言规则,需要编写断言工厂
+          filters:
+            - RewritePath=/api/order/(?<segment>.*), /$\{segment} # RewritePath用于重写请求路径
+            - AddResponseHeader=Gateway-Route, order-route # addResponseHeader用于添加响应头
+#            - q=q,value2 # 如果是自定义的断言规则,需要编写断言工厂
             # 编写自定义断言工厂,需要创建:断言名RoutePredicateFactory的类,再在里面进行编写
 #            - name: Query # 这里的Query表示请求参数匹配
 #              args:
@@ -16,3 +19,5 @@ spring:
           uri: lb://service-product
           predicates:
             - Path=/api/product/**
+          filters:
+            - RewritePath=/api/product/(?<segment>.*), /$\{segment} # RewritePath用于重写请求路径
