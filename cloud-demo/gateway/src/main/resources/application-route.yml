@@ -1,6 +1,11 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:  # 全局CORS配置,所有服务都经过gateway,所以都在这里配置
+            '[/**]': # 这里的[/**]表示所有路径都允许跨域
+                allowed-origin-patterns: '*' # 允许所有来源
+                allowedMethods: '*' # 允许所有HTTP方法
       routes:
         - id: order-route
           uri: lb://service-order # 这里的lb表示负载均衡load balancer
