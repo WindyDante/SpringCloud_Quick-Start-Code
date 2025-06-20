@@ -8,11 +8,13 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import jakarta.annotation.Resource;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RefreshScope   // 激活远程nacos配置中心的自动刷新
+@RequestMapping("/api/order")
 public class OrderController {
 
 

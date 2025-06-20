@@ -9,12 +9,14 @@
         <module name="services-product" />
         <module name="Model" />
         <module name="services-order" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Model" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="services" options="" />
       <module name="services-order" options="-parameters" />
       <module name="services-product" options="-parameters" />

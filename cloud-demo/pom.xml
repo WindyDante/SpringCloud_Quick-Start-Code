@@ -12,6 +12,7 @@
     <modules>
         <module>services</module>
         <module>Model</module>
+        <module>gateway</module>
     </modules>
     <groupId>com.eastwind</groupId>
     <artifactId>cloud-demo</artifactId>

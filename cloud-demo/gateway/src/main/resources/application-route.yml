@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: order-route
+          uri: lb://service-order # 这里的lb表示负载均衡load balancer
+          predicates: # Predicates用于定义路由的匹配规则
+            - Path=/api/order/** # 这里的Path表示请求路径匹配,只要匹配到了/api/order/**的请求就会被路由到service-order服务
+        - id: product-route
+          uri: lb://service-product
+          predicates:
+            - Path=/api/product/**
