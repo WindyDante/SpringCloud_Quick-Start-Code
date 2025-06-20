@@ -9,6 +9,7 @@ spring:
           filters:
             - RewritePath=/api/order/(?<segment>.*), /$\{segment} # RewritePath用于重写请求路径
             - AddResponseHeader=Gateway-Route, order-route # addResponseHeader用于添加响应头
+            - OnceToken=XCC, uuid
 #            - q=q,value2 # 如果是自定义的断言规则,需要编写断言工厂
             # 编写自定义断言工厂,需要创建:断言名RoutePredicateFactory的类,再在里面进行编写
 #            - name: Query # 这里的Query表示请求参数匹配
